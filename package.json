@@ -1,6 +1,6 @@
 {
   "name": "wunderlist-api",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Wunderlist in a simple way.",
   "main": "index.min.js",
   "repository": {

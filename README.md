@@ -47,7 +47,7 @@
 
 ## Concepts
 
-There are some parameters that are needed to operate certain methods, among all, some are rather odd, such as the `revision`, that is the amount of change that this task note, user, list, comment, subtask, in short, anything was modified, by default, it comes with the value `1`. When required this parameter, you must enter the value of the `current revision` and not the following number. For example, to delete a user from the list that was newly created, I pass the current value of revision in case the value `1`. 
+There are some parameters that are needed to operate certain methods, among all, some are rather odd, such as the `revision`, that is the amount of change that this task note, user, list, comment, subtask, in short, anything was modified, by default, it comes with the value `1`. When required this parameter, you must enter the value of the `current revision` and not the following number. For example, to delete a user from the list that was newly created, I pass the current value of revision in case the value `1`.
 For more information on types of parameters or any other matter, please visit the [official site Wunderlist](https://developer.wunderlist.com/documentation).
 
 
@@ -56,6 +56,9 @@ For more information on types of parameters or any other matter, please visit th
 #### Authorization
   To access the information have 2 data, the first the access token and the Client ID, this information is [available here.](https://developer.wunderlist.com/apps)
 
+  - accessToken - string
+  - clientID - string
+  
   ```javascript
   var wunderlist = require('wunderlist-api');
 

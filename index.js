@@ -15,6 +15,7 @@ var q       = require('q');
 
 // Headers
 exports.authentication = function (accessToken, clientId){
+
   return keys = {
     headers: {
       'X-Access-Token': accessToken,
