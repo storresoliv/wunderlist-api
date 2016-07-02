@@ -60,7 +60,7 @@ For more information on types of parameters or any other matter, please visit th
   - clientID - string
 
   ```javascript
-  var wunderlist = require('wunderlist-api');
+  const wunderlist = require('wunderlist-api');
 
   wunderlist.authentication(accessToken, clientID);
   // => authenticated
@@ -73,10 +73,10 @@ Universal Exampler: *for all methods is REQUIRED use `.then()`  for get response
 ```javascript
 var wunderlist = require('wunderlist-api');
 wunderlist.method(parameters)
-  .then(function (response){
+  .then( response => {
     // response
   })
-  .catch(function (error){
+  .catch( error => {
     // handle error
   });
 ```
