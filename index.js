@@ -5,17 +5,15 @@
  * MIT license @ 2016 Felipe Sousa
  * https://github.com/felipesousa/wunderlist-api/blob/master/LICENSE
  *
- * Date: 2016-03-16
+ * Date: 2016-16-03
+ * Last Modified: 2016-07-01
  */
 
-var request = require('request');
-var _       = require('underscore');
-var keys    = {};
-var q       = require('q');
+const request  = require('request');
+const _        = require('underscore');
+let   keys     = {};
 
-// Headers
-exports.authentication = function (accessToken, clientId){
-
+exports.authentication = (accessToken, clientId) => {
   return keys = {
     headers: {
       'X-Access-Token': accessToken,
@@ -25,58 +23,49 @@ exports.authentication = function (accessToken, clientId){
   }
 }
 
-///////////// LISTS METHODS /////////////
-
-
-// GET all lists
-exports.getLists = function (){
-  var deferred = q.defer();
-  var url = {
+exports.getLists = () => {
+  let url = {
     url: 'https://a.wunderlist.com/api/v1/lists',
     method: 'GET'
   }
-  var options = _.extend(url, keys);
+  const options = _.extend(url, keys);
 
-  request(options, function(err, response, body){
-    if (err) {
-      deferred.reject(err);
-    }
+  return new Promise( (resolve, reject) => {
+    request(options, (err, response, body) => {
+      if (err) {
+        reject(err);
+      }
 
-    if (response) {
-      deferred.resolve(response)
-    }
+      if (response) {
+        resolve(response);
+      }
+    });
   });
-
-  return deferred.promise;
 };
 
-// GET specified list
-exports.getOneList = function (list_id){
-  var deferred = q.defer();
-  var url = {
+exports.getOneList = (list_id) => {
+  let url = {
     url: 'https://a.wunderlist.com/api/v1/lists/' + list_id,
     method: 'GET'
   }
 
-  var options = _.extend(url, keys);
+  const options = _.extend(url, keys);
 
-  request(options, function(err, response, body){
-    if (err) {
-      deferred.reject(err);
-    }
+  return new Promise( (resolve, reject) => {
+    request(options, (err, response, body) => {
+      if (err) {
+        reject(err);
+      }
 
-    if (response) {
-      deferred.resolve(response)
-    }
+      if (response) {
+        resolve(response);
+      }
+    });
   });
-
-  return deferred.promise;
 }
 
-// Create a list
-exports.createList = function (title){
-  var deferred = q.defer();
-  var data = {
+exports.createList = (title) => {
+  let data = {
     url: 'https://a.wunderlist.com/api/v1/lists',
     method: 'POST',
     json: {
@@ -84,29 +73,27 @@ exports.createList = function (title){
     }
   }
 
-  var options = _.extend(data, keys);
+  const options = _.extend(data, keys);
 
-  request(options, function(err, response, body){
+  return new Promise( (resolve, reject) => {
+    request(options, (err, response, body) => {
       if (err) {
-        deferred.reject(err);
+        reject(err);
       }
 
       if (response) {
-        deferred.resolve(response)
+        resolve(response);
       }
     });
-
-    return deferred.promise;
+  });
 }
 
-// Update a List
-exports.updateList = function (list_id, revision, title){
-  var deferred = q.defer();
+exports.updateList = (list_id, revision, title) => {
   if (!_.isNumber(arguments[1])) {
     throw new Error('Argument REVISION require type Number.');
   }
 
-  var data = {
+  let data = {
     url: 'https://a.wunderlist.com/api/v1/lists/' + list_id,
     method: 'PATCH',
     json: {
@@ -115,29 +102,28 @@ exports.updateList = function (list_id, revision, title){
     }
   }
 
-  var options = _.extend(data, keys);
+  const options = _.extend(data, keys);
 
-  request(options, function(err, response, body){
+  return new Promise( (resolve, reject) => {
+    request(options, (err, response, body) => {
       if (err) {
-        deferred.reject(err);
+        reject(err);
       }
 
       if (response) {
-        deferred.resolve(response)
+        resolve(response);
       }
     });
-
-    return deferred.promise;
+  });
 }
 
 // Public state List
-exports.stateList = function (list_id, revision, public){
-  var deferred = q.defer();
+exports.stateList = (list_id, revision, public) => {
   if (!_.isNumber(arguments[1])) {
     throw new Error('Argument REVISION require type Number.');
   }
 
-  var data = {
+  let data = {
     url: 'https://a.wunderlist.com/api/v1/lists/' + list_id,
     method: 'PATCH',
     json: {
@@ -146,139 +132,131 @@ exports.stateList = function (list_id, revision, public){
     }
   }
 
-  var options = _.extend(data, keys);
+  const options = _.extend(data, keys);
 
-  request(options, function(err, response, body){
+  return new Promise( (resolve, reject) => {
+    request(options, (err, response, body) => {
       if (err) {
-        deferred.reject(err);
+        reject(err);
       }
 
       if (response) {
-        deferred.resolve(response)
+        resolve(response);
       }
     });
-
-    return deferred.promise;
+  });
 }
 
-exports.deleteList = function (list_id, revision){
-  var deferred = q.defer();
+exports.deleteList = (list_id, revision) => {
   if (!_.isNumber(arguments[1])) {
     throw new Error('Argument REVISION require type Number.');
   }
 
-  var data = {
+  let data = {
     url: 'https://a.wunderlist.com/api/v1/lists/' + list_id + '?revision=' + revision,
     method: 'DELETE'
   }
 
-  var options = _.extend(data, keys);
+  const options = _.extend(data, keys);
 
-  request(options, function(err, response, body){
+  return new Promise( (resolve, reject) => {
+    request(options, (err, response, body) => {
       if (err) {
-        deferred.reject(err);
+        reject(err);
       }
 
       if (response) {
-        deferred.resolve(response)
+        resolve(response);
       }
     });
-
-    return deferred.promise;
+  });
 }
 
-exports.listUsers = function (list_id){
-  var deferred = q.defer();
-  var data = {
+exports.listUsers = (list_id) => {
+  let data = {
     url: 'https://a.wunderlist.com/api/v1/users',
     method: 'GET'
   }
 
-  var options = _.extend(data, keys);
+  const options = _.extend(data, keys);
 
-  request(options, function(err, response, body){
+  return new Promise( (resolve, reject) => {
+    request(options, (err, response, body) => {
       if (err) {
-        deferred.reject(err);
+        reject(err);
       }
 
       if (response) {
-        deferred.resolve(response)
+        resolve(response);
       }
     });
-
-    return deferred.promise;
+  });
 }
 
-///////////// END: LIST METHODS /////////////
-
-/////////////// TASK METHODS ////////////////
-
-exports.getAllTasks = function (id){
-  var deferred = q.defer();
-  var url = {
+exports.getAllTasks = (id) => {
+  let url = {
     url: 'https://a.wunderlist.com/api/v1/tasks?list_id=' + id,
     method: 'GET'
   }
 
-  var options = _.extend(url, keys);
-  request(options, function(err, response, body){
-    if (err) {
-      deferred.reject(err);
-    }
+  const options = _.extend(url, keys);
+  return new Promise( (resolve, reject) => {
+    request(options, (err, response, body) => {
+      if (err) {
+        reject(err);
+      }
 
-    if (response) {
-      deferred.resolve(response)
-    }
+      if (response) {
+        resolve(response);
+      }
+    });
   });
-
-  return deferred.promise;
 }
 
-exports.getTasksForState = function (id, state){
-  var deferred = q.defer();
-  var url = {
+exports.getTasksForState = (id, state) => {
+  let url = {
     url: 'https://a.wunderlist.com/api/v1/tasks?list_id=' + id + '&completed=' + state,
     method: 'GET'
   }
 
-  var options = _.extend(url, keys);
-  request(options, function(err, response, body){
-    if (err) {
-      deferred.reject(err);
-    }
+  const options = _.extend(url, keys);
+  return new Promise( (resolve, reject) => {
+    request(options, (err, response, body) => {
+      if (err) {
+        reject(err);
+      }
 
-    if (response) {
-      deferred.resolve(response)
-    }
+      if (response) {
+        resolve(response);
+      }
+    });
   });
-
-  return deferred.promise;
 }
 
-exports.getOneTask = function (id){
-  var deferred = q.defer();
-  var url = {
+exports.getOneTask = (id) => {
+
+  let url = {
     url: 'https://a.wunderlist.com/api/v1/tasks/' + id,
     method: 'GET'
   }
 
-  var options = _.extend(url, keys);
-  request(options, function(err, response, body){
-    if (err) {
-      deferred.reject(err);
-    }
+  const options = _.extend(url, keys);
+  return new Promise( (resolve, reject) => {
+    request(options, (err, response, body) => {
+      if (err) {
+        reject(err);
+      }
 
-    if (response) {
-      deferred.resolve(response)
-    }
+      if (response) {
+        resolve(response);
+      }
+    });
   });
-
-  return deferred.promise;
 }
 
-exports.createTask = function (list_id, title, state, starred){
-  var deferred = q.defer();
-  var url = {
+exports.createTask = (list_id, title, state, starred) => {
+
+  let url = {
     url:  'https://a.wunderlist.com/api/v1/tasks',
     method: 'POST',
     json: {
@@ -289,124 +267,115 @@ exports.createTask = function (list_id, title, state, starred){
     }
   }
 
-  var options = _.extend(url, keys);
+  const options = _.extend(url, keys);
 
-  request(options, function(err, response, body){
-    if (err) {
-      deferred.reject(err);
-    }
+  return new Promise( (resolve, reject) => {
+    request(options, (err, response, body) => {
+      if (err) {
+        reject(err);
+      }
 
-    if (response) {
-      deferred.resolve(response)
-    }
+      if (response) {
+        resolve(response);
+      }
+    });
   });
-
-  return deferred.promise;
 }
 
-exports.deleteTask = function (id, revision){
-  var deferred = q.defer();
-  var url = {
+exports.deleteTask = (id, revision) => {
+
+  let url = {
     url:  'https://a.wunderlist.com/api/v1/tasks/' + id + '?revision=' + revision,
-    method: 'DELETE',
+    method: 'DELETE'
   }
 
-  var options = _.extend(url, keys);
-  request(options, function(err, response, body){
-    if (err) {
-      deferred.reject(err);
-    }
+  const options = _.extend(url, keys);
+  return new Promise( (resolve, reject) => {
+    request(options, (err, response, body) => {
+      if (err) {
+        reject(err);
+      }
 
-    if (response) {
-      deferred.resolve(response)
-    }
+      if (response) {
+        resolve(response);
+      }
+    });
   });
-
-  return deferred.promise;
 }
 
-///////////// END: TASK METHODS /////////////
+exports.user = () => {
 
-/////////////// USERS METHODS ////////////////
-
-exports.user = function (){
-  var deferred = q.defer();
-  var url = {
+  let url = {
     url:  'https://a.wunderlist.com/api/v1/user',
-    method: 'GET',
+    method: 'GET'
   }
 
-  var options = _.extend(url, keys);
-  request(options, function(err, response, body){
-    if (err) {
-      deferred.reject(err);
-    }
+  const options = _.extend(url, keys);
+  return new Promise( (resolve, reject) => {
+    request(options, (err, response, body) => {
+      if (err) {
+        reject(err);
+      }
 
-    if (response) {
-      deferred.resolve(response)
-    }
+      if (response) {
+        resolve(response);
+      }
+    });
   });
-
-  return deferred.promise;
 }
 
 
-exports.avatar = function (user_id, size, fallback){
+exports.avatar = (user_id, size, fallback) => {
 
   var  key= {
     headers: {
       'Content-Type': 'image/png'
     }
   }
-  var deferred = q.defer();
-  var url = {
+
+  let url = {
     url:  'https://a.wunderlist.com/api/v1/avatar?user_id=' + user_id + '&size=' + size + '&fallback=' + fallback,
-    method: 'GET',
+    method: 'GET'
   }
 
-  var options = _.extend(url, key);
-  request(options, function(err, response, body){
-    if (err) {
-      deferred.reject(err);
-    }
+  const options = _.extend(url, key);
+  return new Promise( (resolve, reject) => {
+    request(options, (err, response, body) => {
+      if (err) {
+        reject(err);
+      }
 
-    if (response) {
-      deferred.resolve(response.request.href)
-    }
+      if (response) {
+        resolve(response);
+      }
+    });
   });
-
-  return deferred.promise;
 }
 
+exports.getMembership = () => {
 
-///////////// END: USER /////////////
-
-/////////////// MEMBERSHIP ////////////////
-
-exports.getMembership = function (){
-  var deferred = q.defer();
-  var url = {
+  let url = {
     url:  'https://a.wunderlist.com/api/v1/memberships',
-    method: 'GET',
+    method: 'GET'
   }
 
-  var options = _.extend(url, keys);
-  request(options, function(err, response, body){
-    if (err) {
-      deferred.reject(err);
-    }
+  const options = _.extend(url, keys);
+  return new Promise( (resolve, reject) => {
+    request(options, (err, response, body) => {
+      if (err) {
+        reject(err);
+      }
 
-    if (response) {
-      deferred.resolve(response)
-    }
+      if (response) {
+        resolve(response);
+      }
+    });
   });
-
-  return deferred.promise;
 }
 
-exports.addMemberToList = function (user_id, list_id, muted){
-  var deferred = q.defer();
-  var url = {
+exports.addMemberToList = (user_id, list_id, muted) => {
+
+  let url = {
     url:  'https://a.wunderlist.com/api/v1/memberships',
     method: 'POST',
     json: {
@@ -416,23 +385,23 @@ exports.addMemberToList = function (user_id, list_id, muted){
     }
   }
 
-  var options = _.extend(url, keys);
-  request(options, function(err, response, body){
-    if (err) {
-      deferred.reject(err);
-    }
+  const options = _.extend(url, keys);
+  return new Promise( (resolve, reject) => {
+    request(options, (err, response, body) => {
+      if (err) {
+        reject(err);
+      }
 
-    if (response) {
-      deferred.resolve(response)
-    }
+      if (response) {
+        resolve(response);
+      }
+    });
   });
-
-  return deferred.promise;
 }
 
-exports.removeMember = function (user_id, revision){
-  var deferred = q.defer();
-  var url = {
+exports.removeMember = (user_id, revision) => {
+
+  let url = {
     url:  'https://a.wunderlist.com/api/v1/memberships/' + user_id,
     method: 'DELETE',
     json: {
@@ -441,73 +410,65 @@ exports.removeMember = function (user_id, revision){
     }
   }
 
-  var options = _.extend(url, keys);
-  request(options, function(err, response, body){
-    if (err) {
-      deferred.reject(err);
-    }
+  const options = _.extend(url, keys);
+  return new Promise( (resolve, reject) => {
+    request(options, (err, response, body) => {
+      if (err) {
+        reject(err);
+      }
 
-    if (response) {
-      deferred.resolve(response)
-    }
+      if (response) {
+        resolve(response);
+      }
+    });
   });
-
-  return deferred.promise;
 }
 
+exports.getCommentsList = (list_id) => {
 
-
-///////////// END: MEMBERSHIP /////////////
-
-/////////////// TASKCOMMENTS ////////////////
-
-exports.getCommentsList = function (list_id){
-  var deferred = q.defer();
-  var url = {
+  let url = {
     url:  'https://a.wunderlist.com/api/v1/task_comments?list_id=' + list_id,
     method: 'GET'
   }
 
-  var options = _.extend(url, keys);
-  request(options, function(err, response, body){
-    if (err) {
-      deferred.reject(err);
-    }
+  const options = _.extend(url, keys);
+  return new Promise( (resolve, reject) => {
+    request(options, (err, response, body) => {
+      if (err) {
+        reject(err);
+      }
 
-    if (response) {
-      deferred.resolve(response)
-    }
+      if (response) {
+        resolve(response);
+      }
+    });
   });
-
-  return deferred.promise;
 }
 
-exports.getCommentsTask = function (task_id){
-  var deferred = q.defer();
-  var url = {
+exports.getCommentsTask = (task_id) => {
+
+  let url = {
     url:  'https://a.wunderlist.com/api/v1/task_comments?task_id=' + task_id,
     method: 'GET'
   }
 
-  var options = _.extend(url, keys);
-  request(options, function(err, response, body){
-    if (err) {
-      deferred.reject(err);
-    }
+  const options = _.extend(url, keys);
+  return new Promise( (resolve, reject) => {
+    request(options, (err, response, body) => {
+      if (err) {
+        reject(err);
+      }
 
-    if (response) {
-      deferred.resolve(response)
-    }
+      if (response) {
+        resolve(response);
+      }
+    });
   });
-
-  return deferred.promise;
 }
 
+exports.createComment = (task_id, text) => {
 
-
-exports.createComment = function (task_id, text){
-  var deferred = q.defer();
-  var url = {
+  let url = {
     url:  'https://a.wunderlist.com/api/v1/task_comments',
     method: 'POST',
     json: {
@@ -516,113 +477,109 @@ exports.createComment = function (task_id, text){
     }
   }
 
-  var options = _.extend(url, keys);
+  const options = _.extend(url, keys);
 
-  request(options, function(err, response, body){
-    if (err) {
-      deferred.reject(err);
-    }
+  return new Promise( (resolve, reject) => {
+    request(options, (err, response, body) => {
+      if (err) {
+        reject(err);
+      }
 
-    if (response) {
-      deferred.resolve(response)
-    }
+      if (response) {
+        resolve(response);
+      }
+    });
   });
-
-  return deferred.promise;
 }
 
-///////////// END: TASKCOMMENTS /////////////
+exports.getSubtaskFromList = (list_id) => {
 
-/////////////// SUBTASKS ////////////////
-
-exports.getSubtaskFromList = function (list_id){
-  var deferred = q.defer();
-  var url = {
+  let url = {
     url:  'https://a.wunderlist.com/api/v1/subtasks?list_id=' + list_id,
     method: 'GET'
   }
 
-  var options = _.extend(url, keys);
-  request(options, function(err, response, body){
-    if (err) {
-      deferred.reject(err);
-    }
+  const options = _.extend(url, keys);
+  return new Promise( (resolve, reject) => {
+    request(options, (err, response, body) => {
+      if (err) {
+        reject(err);
+      }
 
-    if (response) {
-      deferred.resolve(response)
-    }
+      if (response) {
+        resolve(response);
+      }
+    });
   });
-
-  return deferred.promise;
 }
 
-exports.getSubtaskFromTask = function (task_id){
-  var deferred = q.defer();
-  var url = {
+exports.getSubtaskFromTask = (task_id) => {
+
+  let url = {
     url:  'https://a.wunderlist.com/api/v1/subtasks?task_id=' + task_id,
     method: 'GET'
   }
 
-  var options = _.extend(url, keys);
-  request(options, function(err, response, body){
-    if (err) {
-      deferred.reject(err);
-    }
+  const options = _.extend(url, keys);
+  return new Promise( (resolve, reject) => {
+    request(options, (err, response, body) => {
+      if (err) {
+        reject(err);
+      }
 
-    if (response) {
-      deferred.resolve(response)
-    }
+      if (response) {
+        resolve(response);
+      }
+    });
   });
-
-  return deferred.promise;
 }
 
-exports.getSubtaskCompletedFromList = function (list_id, completed){
-  var deferred = q.defer();
-  var url = {
+exports.getSubtaskCompletedFromList =  (list_id, completed) => {
+
+  let url = {
     url:  'https://a.wunderlist.com/api/v1/subtasks?list_id=' + list_id + '&completed=' + completed,
     method: 'GET'
   }
 
-  var options = _.extend(url, keys);
-  request(options, function(err, response, body){
-    if (err) {
-      deferred.reject(err);
-    }
+  const options = _.extend(url, keys);
+  return new Promise( (resolve, reject) => {
+    request(options, (err, response, body) => {
+      if (err) {
+        reject(err);
+      }
 
-    if (response) {
-      deferred.resolve(response)
-    }
+      if (response) {
+        resolve(response);
+      }
+    });
   });
-
-  return deferred.promise;
 }
 
-exports.getSubtaskCompletedFromTask = function (task_id, completed){
-  var deferred = q.defer();
-  var url = {
+exports.getSubtaskCompletedFromTask = (task_id, completed) => {
+
+  let url = {
     url:  'https://a.wunderlist.com/api/v1/subtasks?task_id=' + task_id + '&completed=' + completed,
     method: 'GET'
   }
 
-  var options = _.extend(url, keys);
-  request(options, function(err, response, body){
-    if (err) {
-      deferred.reject(err);
-    }
+  const options = _.extend(url, keys);
+  return new Promise( (resolve, reject) => {
+    request(options, (err, response, body) => {
+      if (err) {
+        reject(err);
+      }
 
-    if (response) {
-      deferred.resolve(response)
-    }
+      if (response) {
+        resolve(response);
+      }
+    });
   });
-
-  return deferred.promise;
 }
 
 
-exports.createSubstask = function (task_id, title, completed){
-  var deferred = q.defer();
-  var url = {
+exports.createSubstask = (task_id, title, completed) => {
+
+  let url = {
     url:  'https://a.wunderlist.com/api/v1/subtasks',
     method: 'POST',
     json: {
@@ -632,100 +589,94 @@ exports.createSubstask = function (task_id, title, completed){
     }
   }
 
-  var options = _.extend(url, keys);
+  const options = _.extend(url, keys);
 
-  request(options, function(err, response, body){
-    if (err) {
-      deferred.reject(err);
-    }
+  return new Promise( (resolve, reject) => {
+    request(options, (err, response, body) => {
+      if (err) {
+        reject(err);
+      }
 
-    if (response) {
-      deferred.resolve(response)
-    }
+      if (response) {
+        resolve(response);
+      }
+    });
   });
-
-  return deferred.promise;
 }
 
 
-exports.deleteSubtask = function (subtask_id, revision){
-  var deferred = q.defer();
+exports.deleteSubtask = (subtask_id, revision) => {
+
   if (!_.isNumber(arguments[1])) {
     throw new Error('Argument REVISION require type Number.');
   }
 
-  var data = {
+  let data = {
     url: 'https://a.wunderlist.com/api/v1/subtasks/' + subtask_id + '?revision=' + revision,
     method: 'DELETE'
   }
 
-  var options = _.extend(data, keys);
+  const options = _.extend(data, keys);
 
-  request(options, function(err, response, body){
+  return new Promise( (resolve, reject) => {
+    request(options, (err, response, body) => {
       if (err) {
-        deferred.reject(err);
+        reject(err);
       }
 
       if (response) {
-        deferred.resolve(response)
+        resolve(response);
       }
     });
-
-    return deferred.promise;
+  });
 }
 
+exports.getNoteFromList = (list_id) => {
 
-
-///////////// END: SUBTASKS /////////////
-
-/////////////// NOTES ////////////////
-
-exports.getNoteFromList = function (list_id){
-  var deferred = q.defer();
-  var url = {
+  let url = {
     url:  'https://a.wunderlist.com/api/v1/notes?list_id=' + list_id,
     method: 'GET'
   }
 
-  var options = _.extend(url, keys);
-  request(options, function(err, response, body){
-    if (err) {
-      deferred.reject(err);
-    }
+  const options = _.extend(url, keys);
+  return new Promise( (resolve, reject) => {
+    request(options, (err, response, body) => {
+      if (err) {
+        reject(err);
+      }
 
-    if (response) {
-      deferred.resolve(response)
-    }
+      if (response) {
+        resolve(response);
+      }
+    });
   });
-
-  return deferred.promise;
 }
 
-exports.getNoteFromTask = function (task_id){
-  var deferred = q.defer();
-  var url = {
+exports.getNoteFromTask = (task_id) => {
+
+  let url = {
     url:  'https://a.wunderlist.com/api/v1/notes?task_id=' + task_id,
     method: 'GET'
   }
 
-  var options = _.extend(url, keys);
-  request(options, function(err, response, body){
-    if (err) {
-      deferred.reject(err);
-    }
+  const options = _.extend(url, keys);
+  return new Promise( (resolve, reject) => {
+    request(options, (err, response, body) => {
+      if (err) {
+        reject(err);
+      }
 
-    if (response) {
-      deferred.resolve(response)
-    }
+      if (response) {
+        resolve(response);
+      }
+    });
   });
-
-  return deferred.promise;
 }
 
 
-exports.createNote = function (task_id, content){
-  var deferred = q.defer();
-  var url = {
+exports.createNote = (task_id, content) => {
+
+  let url = {
     url:  'https://a.wunderlist.com/api/v1/notes',
     method: 'POST',
     json: {
@@ -734,41 +685,39 @@ exports.createNote = function (task_id, content){
     }
   }
 
-  var options = _.extend(url, keys);
+  const options = _.extend(url, keys);
 
-  request(options, function(err, response, body){
-    if (err) {
-      deferred.reject(err);
-    }
+  return new Promise( (resolve, reject) => {
+    request(options, (err, response, body) => {
+      if (err) {
+        reject(err);
+      }
 
-    if (response) {
-      deferred.resolve(response)
-    }
+      if (response) {
+        resolve(response);
+      }
+    });
   });
-
-  return deferred.promise;
 }
 
 
-exports.deleteNote = function (note_id, revision){
-  var deferred = q.defer();
-
-  var data = {
+exports.deleteNote = (note_id, revision) => {
+  let data = {
     url: 'https://a.wunderlist.com/api/v1/notes/' + note_id + '?revision=' + revision,
     method: 'DELETE'
   }
 
-  var options = _.extend(data, keys);
+  const options = _.extend(data, keys);
 
-  request(options, function(err, response, body){
+  return new Promise( (resolve, reject) => {
+    request(options, (err, response, body) => {
       if (err) {
-        deferred.reject(err);
+        reject(err);
       }
 
       if (response) {
-        deferred.resolve(response)
+        resolve(response);
       }
     });
-
-    return deferred.promise;
+  });
 }
