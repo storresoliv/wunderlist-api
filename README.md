@@ -58,7 +58,7 @@ For more information on types of parameters or any other matter, please visit th
 
   - accessToken - string
   - clientID - string
-  
+
   ```javascript
   var wunderlist = require('wunderlist-api');
 
@@ -110,7 +110,7 @@ wunderlist.getLists()
 - list_id: integer
 
 ```javascript
-wunderlist.getOneList(list_id)
+wunderlist.getList(list_id)
 ```
 
 ##### Make a list from state (public or private)
@@ -159,14 +159,14 @@ wunderlist.listUsers(list_id)
 - list_id: integer
 
 ```javascript
-wunderlist.getNoteFromList(list_id)
+wunderlist.notesList(list_id)
 ```
 
 ##### Get notes from task
 - task_id: integer
 
 ```javascript
-wunderlist.getNoteFromTask(task_id)
+wunderlist.notesTask(task_id)
 ```
 
 ##### Create note
@@ -206,7 +206,7 @@ wunderlist.getTasksForState(list_id, state)
 - task_id: integer
 
 ```javascript
-wunderlist.getOneTask(task_id)
+wunderlist.getTask(task_id)
 ```
 
 ##### Create task
@@ -233,7 +233,7 @@ wunderlist.deleteTask(task_id, revision)
 - task_id: integer
 
 ```javascript
-wunderlist.getSubtaskFromList(task_id)
+wunderlist.subtaskList(task_id)
 ```
 
 ##### Get completed subtasks from list
@@ -241,14 +241,14 @@ wunderlist.getSubtaskFromList(task_id)
 - completed: boolean
 
 ```javascript
-wunderlist.getSubtaskCompletedFromList(list_id, completed)
+wunderlist.subtaskListState(list_id, completed)
 ```
 
 ##### Get subtask from task
 - task_id: integer
 
 ```javascript
-wunderlist.getSubtaskFromTask(task_id)
+wunderlist.subtaskComment(task_id)
 ```
 
 ##### Get completed subtask from task
@@ -257,7 +257,7 @@ wunderlist.getSubtaskFromTask(task_id)
 - completed: boolean
 
 ```javascript
-wunderlist.getSubtaskCompletedFromTask(task_id, completed)
+wunderlist.subtaskCommentState(task_id, completed)
 ```
 
 ##### Create subtask
@@ -284,14 +284,14 @@ wunderlist.deleteSubtask(subtask_id, revision)
 - task_id: integer
 
 ```javascript
-wunderlist.getCommentsTask(task_id)
+wunderlist.commentsTaks(task_id)
 ```
 
 ##### Get comments from Lists
 - list_id: integer
 
 ```javascript
-wunderlist.getCommentsList(list_id)
+wunderlist.commentsList(list_id)
 ```
 
 ##### Create Comment
@@ -316,7 +316,7 @@ wunderlist.getMembership()
 - muted: boolean
 
 ```javascript
-wunderlist.addMemberToList(user_id, list_id, muted)
+wunderlist.addMember(user_id, list_id, muted)
 ```
 
 ##### Remove a Member from a List
