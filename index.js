@@ -6,7 +6,7 @@
  * https://github.com/felipesousa/wunderlist-api/blob/master/LICENSE
  *
  * Date: 2016-16-03
- * Last Modified: 2016-07-01
+ * Last Modified: 2016-07-02
  */
 
 const request  = require('request');
@@ -43,7 +43,7 @@ exports.getLists = () => {
   });
 };
 
-exports.getOneList = (list_id) => {
+exports.getList = (list_id) => {
   let url = {
     url: 'https://a.wunderlist.com/api/v1/lists/' + list_id,
     method: 'GET'
@@ -117,7 +117,6 @@ exports.updateList = (list_id, revision, title) => {
   });
 }
 
-// Public state List
 exports.stateList = (list_id, revision, public) => {
   if (!_.isNumber(arguments[1])) {
     throw new Error('Argument REVISION require type Number.');
@@ -193,7 +192,7 @@ exports.listUsers = (list_id) => {
   });
 }
 
-exports.getAllTasks = (id) => {
+exports.getTasks = (id) => {
   let url = {
     url: 'https://a.wunderlist.com/api/v1/tasks?list_id=' + id,
     method: 'GET'
@@ -233,7 +232,7 @@ exports.getTasksForState = (id, state) => {
   });
 }
 
-exports.getOneTask = (id) => {
+exports.getTask = (id) => {
 
   let url = {
     url: 'https://a.wunderlist.com/api/v1/tasks/' + id,
@@ -373,7 +372,7 @@ exports.getMembership = () => {
   });
 }
 
-exports.addMemberToList = (user_id, list_id, muted) => {
+exports.addMember = (user_id, list_id, muted) => {
 
   let url = {
     url:  'https://a.wunderlist.com/api/v1/memberships',
@@ -424,7 +423,7 @@ exports.removeMember = (user_id, revision) => {
   });
 }
 
-exports.getCommentsList = (list_id) => {
+exports.commentsList = (list_id) => {
 
   let url = {
     url:  'https://a.wunderlist.com/api/v1/task_comments?list_id=' + list_id,
@@ -445,7 +444,7 @@ exports.getCommentsList = (list_id) => {
   });
 }
 
-exports.getCommentsTask = (task_id) => {
+exports.commentsTask = (task_id) => {
 
   let url = {
     url:  'https://a.wunderlist.com/api/v1/task_comments?task_id=' + task_id,
@@ -492,7 +491,7 @@ exports.createComment = (task_id, text) => {
   });
 }
 
-exports.getSubtaskFromList = (list_id) => {
+exports.subtaskList = (list_id) => {
 
   let url = {
     url:  'https://a.wunderlist.com/api/v1/subtasks?list_id=' + list_id,
@@ -513,7 +512,7 @@ exports.getSubtaskFromList = (list_id) => {
   });
 }
 
-exports.getSubtaskFromTask = (task_id) => {
+exports.subtaskComment = (task_id) => {
 
   let url = {
     url:  'https://a.wunderlist.com/api/v1/subtasks?task_id=' + task_id,
@@ -534,7 +533,7 @@ exports.getSubtaskFromTask = (task_id) => {
   });
 }
 
-exports.getSubtaskCompletedFromList =  (list_id, completed) => {
+exports.subtaskListState =  (list_id, completed) => {
 
   let url = {
     url:  'https://a.wunderlist.com/api/v1/subtasks?list_id=' + list_id + '&completed=' + completed,
@@ -555,7 +554,7 @@ exports.getSubtaskCompletedFromList =  (list_id, completed) => {
   });
 }
 
-exports.getSubtaskCompletedFromTask = (task_id, completed) => {
+exports.subtaskCommentState = (task_id, completed) => {
 
   let url = {
     url:  'https://a.wunderlist.com/api/v1/subtasks?task_id=' + task_id + '&completed=' + completed,
@@ -631,7 +630,7 @@ exports.deleteSubtask = (subtask_id, revision) => {
   });
 }
 
-exports.getNoteFromList = (list_id) => {
+exports.notesList = (list_id) => {
 
   let url = {
     url:  'https://a.wunderlist.com/api/v1/notes?list_id=' + list_id,
@@ -652,7 +651,7 @@ exports.getNoteFromList = (list_id) => {
   });
 }
 
-exports.getNoteFromTask = (task_id) => {
+exports.notesTask = (task_id) => {
 
   let url = {
     url:  'https://a.wunderlist.com/api/v1/notes?task_id=' + task_id,
