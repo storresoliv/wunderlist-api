@@ -6,717 +6,718 @@
  * https://github.com/felipesousa/wunderlist-api/blob/master/LICENSE
  *
  * Date: 2016-16-03
- * Last Modified: 2016-07-02
+ * Last Modified: 2016-07-03
  */
 
 const request  = require('request');
 const _        = require('underscore');
 let   keys     = {};
 
-exports.authentication = (accessToken, clientId) => {
-  return keys = {
-    headers: {
-      'X-Access-Token': accessToken,
-      'X-Client-ID': clientId,
-      'Content-Type': 'application/json'
+module.exports = {
+
+  authentication: (accessToken, clientId) => {
+    return keys = {
+      headers: {
+        'X-Access-Token': accessToken,
+        'X-Client-ID': clientId,
+        'Content-Type': 'application/json'
+      }
     }
-  }
-}
+  },
 
-exports.getLists = () => {
-  let url = {
-    url: 'https://a.wunderlist.com/api/v1/lists',
-    method: 'GET'
-  }
-  const options = _.extend(url, keys);
-
-  return new Promise( (resolve, reject) => {
-    request(options, (err, response, body) => {
-      if (err) {
-        reject(err);
-      }
-
-      if (response) {
-        resolve(response);
-      }
-    });
-  });
-};
-
-exports.getList = (list_id) => {
-  let url = {
-    url: 'https://a.wunderlist.com/api/v1/lists/' + list_id,
-    method: 'GET'
-  }
-
-  const options = _.extend(url, keys);
-
-  return new Promise( (resolve, reject) => {
-    request(options, (err, response, body) => {
-      if (err) {
-        reject(err);
-      }
-
-      if (response) {
-        resolve(response);
-      }
-    });
-  });
-}
-
-exports.createList = (title) => {
-  let data = {
-    url: 'https://a.wunderlist.com/api/v1/lists',
-    method: 'POST',
-    json: {
-      "title": title
+  getLists: () => {
+    let url = {
+      url: 'https://a.wunderlist.com/api/v1/lists',
+      method: 'GET'
     }
-  }
 
-  const options = _.extend(data, keys);
+    const options = _.extend(url, keys);
+    return new Promise( (resolve, reject) => {
+      request(options, (err, response, body) => {
+        if (err) {
+          reject(err);
+        }
 
-  return new Promise( (resolve, reject) => {
-    request(options, (err, response, body) => {
-      if (err) {
-        reject(err);
-      }
-
-      if (response) {
-        resolve(response);
-      }
+        if (response) {
+          resolve(response);
+        }
+      });
     });
-  });
-}
+  },
 
-exports.updateList = (list_id, revision, title) => {
-  if (!_.isNumber(arguments[1])) {
-    throw new Error('Argument REVISION require type Number.');
-  }
-
-  let data = {
-    url: 'https://a.wunderlist.com/api/v1/lists/' + list_id,
-    method: 'PATCH',
-    json: {
-      "revision": revision,
-      "title": title
+  getList: (list_id) => {
+    let url = {
+      url: 'https://a.wunderlist.com/api/v1/lists/' + list_id,
+      method: 'GET'
     }
-  }
 
-  const options = _.extend(data, keys);
+    const options = _.extend(url, keys);
 
-  return new Promise( (resolve, reject) => {
-    request(options, (err, response, body) => {
-      if (err) {
-        reject(err);
-      }
+    return new Promise( (resolve, reject) => {
+      request(options, (err, response, body) => {
+        if (err) {
+          reject(err);
+        }
 
-      if (response) {
-        resolve(response);
-      }
+        if (response) {
+          resolve(response);
+        }
+      });
     });
-  });
-}
+  },
 
-exports.stateList = (list_id, revision, public) => {
-  if (!_.isNumber(arguments[1])) {
-    throw new Error('Argument REVISION require type Number.');
-  }
-
-  let data = {
-    url: 'https://a.wunderlist.com/api/v1/lists/' + list_id,
-    method: 'PATCH',
-    json: {
-      "revision": revision,
-      "public": public
+  createList: (title) => {
+    let data = {
+      url: 'https://a.wunderlist.com/api/v1/lists',
+      method: 'POST',
+      json: {
+        "title": title
+      }
     }
-  }
 
-  const options = _.extend(data, keys);
+    const options = _.extend(data, keys);
 
-  return new Promise( (resolve, reject) => {
-    request(options, (err, response, body) => {
-      if (err) {
-        reject(err);
-      }
+    return new Promise( (resolve, reject) => {
+      request(options, (err, response, body) => {
+        if (err) {
+          reject(err);
+        }
 
-      if (response) {
-        resolve(response);
-      }
+        if (response) {
+          resolve(response);
+        }
+      });
     });
-  });
-}
+  },
 
-exports.deleteList = (list_id, revision) => {
-  if (!_.isNumber(arguments[1])) {
-    throw new Error('Argument REVISION require type Number.');
-  }
-
-  let data = {
-    url: 'https://a.wunderlist.com/api/v1/lists/' + list_id + '?revision=' + revision,
-    method: 'DELETE'
-  }
-
-  const options = _.extend(data, keys);
-
-  return new Promise( (resolve, reject) => {
-    request(options, (err, response, body) => {
-      if (err) {
-        reject(err);
-      }
-
-      if (response) {
-        resolve(response);
-      }
-    });
-  });
-}
-
-exports.listUsers = (list_id) => {
-  let data = {
-    url: 'https://a.wunderlist.com/api/v1/users',
-    method: 'GET'
-  }
-
-  const options = _.extend(data, keys);
-
-  return new Promise( (resolve, reject) => {
-    request(options, (err, response, body) => {
-      if (err) {
-        reject(err);
-      }
-
-      if (response) {
-        resolve(response);
-      }
-    });
-  });
-}
-
-exports.getTasks = (id) => {
-  let url = {
-    url: 'https://a.wunderlist.com/api/v1/tasks?list_id=' + id,
-    method: 'GET'
-  }
-
-  const options = _.extend(url, keys);
-  return new Promise( (resolve, reject) => {
-    request(options, (err, response, body) => {
-      if (err) {
-        reject(err);
-      }
-
-      if (response) {
-        resolve(response);
-      }
-    });
-  });
-}
-
-exports.getTasksForState = (id, state) => {
-  let url = {
-    url: 'https://a.wunderlist.com/api/v1/tasks?list_id=' + id + '&completed=' + state,
-    method: 'GET'
-  }
-
-  const options = _.extend(url, keys);
-  return new Promise( (resolve, reject) => {
-    request(options, (err, response, body) => {
-      if (err) {
-        reject(err);
-      }
-
-      if (response) {
-        resolve(response);
-      }
-    });
-  });
-}
-
-exports.getTask = (id) => {
-
-  let url = {
-    url: 'https://a.wunderlist.com/api/v1/tasks/' + id,
-    method: 'GET'
-  }
-
-  const options = _.extend(url, keys);
-  return new Promise( (resolve, reject) => {
-    request(options, (err, response, body) => {
-      if (err) {
-        reject(err);
-      }
-
-      if (response) {
-        resolve(response);
-      }
-    });
-  });
-}
-
-exports.createTask = (list_id, title, state, starred) => {
-
-  let url = {
-    url:  'https://a.wunderlist.com/api/v1/tasks',
-    method: 'POST',
-    json: {
-      "list_id": list_id,
-      "title": title,
-      "completed": state,
-      "starred": starred
+  updateList: (list_id, revision, title) => {
+    if (!_.isNumber(arguments[1])) {
+      throw new Error('Argument REVISION require type Number.');
     }
-  }
 
-  const options = _.extend(url, keys);
-
-  return new Promise( (resolve, reject) => {
-    request(options, (err, response, body) => {
-      if (err) {
-        reject(err);
+    let data = {
+      url: 'https://a.wunderlist.com/api/v1/lists/' + list_id,
+      method: 'PATCH',
+      json: {
+        "revision": revision,
+        "title": title
       }
-
-      if (response) {
-        resolve(response);
-      }
-    });
-  });
-}
-
-exports.deleteTask = (id, revision) => {
-
-  let url = {
-    url:  'https://a.wunderlist.com/api/v1/tasks/' + id + '?revision=' + revision,
-    method: 'DELETE'
-  }
-
-  const options = _.extend(url, keys);
-  return new Promise( (resolve, reject) => {
-    request(options, (err, response, body) => {
-      if (err) {
-        reject(err);
-      }
-
-      if (response) {
-        resolve(response);
-      }
-    });
-  });
-}
-
-exports.user = () => {
-
-  let url = {
-    url:  'https://a.wunderlist.com/api/v1/user',
-    method: 'GET'
-  }
-
-  const options = _.extend(url, keys);
-  return new Promise( (resolve, reject) => {
-    request(options, (err, response, body) => {
-      if (err) {
-        reject(err);
-      }
-
-      if (response) {
-        resolve(response);
-      }
-    });
-  });
-}
-
-
-exports.avatar = (user_id, size, fallback) => {
-
-  var  key= {
-    headers: {
-      'Content-Type': 'image/png'
     }
-  }
 
-  let url = {
-    url:  'https://a.wunderlist.com/api/v1/avatar?user_id=' + user_id + '&size=' + size + '&fallback=' + fallback,
-    method: 'GET'
-  }
+    const options = _.extend(data, keys);
 
-  const options = _.extend(url, key);
-  return new Promise( (resolve, reject) => {
-    request(options, (err, response, body) => {
-      if (err) {
-        reject(err);
-      }
+    return new Promise( (resolve, reject) => {
+      request(options, (err, response, body) => {
+        if (err) {
+          reject(err);
+        }
 
-      if (response) {
-        resolve(response);
-      }
+        if (response) {
+          resolve(response);
+        }
+      });
     });
-  });
-}
+  },
 
-exports.getMembership = () => {
-
-  let url = {
-    url:  'https://a.wunderlist.com/api/v1/memberships',
-    method: 'GET'
-  }
-
-  const options = _.extend(url, keys);
-  return new Promise( (resolve, reject) => {
-    request(options, (err, response, body) => {
-      if (err) {
-        reject(err);
-      }
-
-      if (response) {
-        resolve(response);
-      }
-    });
-  });
-}
-
-exports.addMember = (user_id, list_id, muted) => {
-
-  let url = {
-    url:  'https://a.wunderlist.com/api/v1/memberships',
-    method: 'POST',
-    json: {
-      "list_id": list_id,
-      "user_id": user_id,
-      "muted": muted
+  stateList: (list_id, revision, public) => {
+    if (!_.isNumber(arguments[1])) {
+      throw new Error('Argument REVISION require type Number.');
     }
-  }
 
-  const options = _.extend(url, keys);
-  return new Promise( (resolve, reject) => {
-    request(options, (err, response, body) => {
-      if (err) {
-        reject(err);
+    let data = {
+      url: 'https://a.wunderlist.com/api/v1/lists/' + list_id,
+      method: 'PATCH',
+      json: {
+        "revision": revision,
+        "public": public
       }
-
-      if (response) {
-        resolve(response);
-      }
-    });
-  });
-}
-
-exports.removeMember = (user_id, revision) => {
-
-  let url = {
-    url:  'https://a.wunderlist.com/api/v1/memberships/' + user_id,
-    method: 'DELETE',
-    json: {
-      "revision": revision,
-
     }
-  }
 
-  const options = _.extend(url, keys);
-  return new Promise( (resolve, reject) => {
-    request(options, (err, response, body) => {
-      if (err) {
-        reject(err);
-      }
+    const options = _.extend(data, keys);
 
-      if (response) {
-        resolve(response);
-      }
+    return new Promise( (resolve, reject) => {
+      request(options, (err, response, body) => {
+        if (err) {
+          reject(err);
+        }
+
+        if (response) {
+          resolve(response);
+        }
+      });
     });
-  });
-}
+  },
 
-exports.commentsList = (list_id) => {
-
-  let url = {
-    url:  'https://a.wunderlist.com/api/v1/task_comments?list_id=' + list_id,
-    method: 'GET'
-  }
-
-  const options = _.extend(url, keys);
-  return new Promise( (resolve, reject) => {
-    request(options, (err, response, body) => {
-      if (err) {
-        reject(err);
-      }
-
-      if (response) {
-        resolve(response);
-      }
-    });
-  });
-}
-
-exports.commentsTask = (task_id) => {
-
-  let url = {
-    url:  'https://a.wunderlist.com/api/v1/task_comments?task_id=' + task_id,
-    method: 'GET'
-  }
-
-  const options = _.extend(url, keys);
-  return new Promise( (resolve, reject) => {
-    request(options, (err, response, body) => {
-      if (err) {
-        reject(err);
-      }
-
-      if (response) {
-        resolve(response);
-      }
-    });
-  });
-}
-
-exports.createComment = (task_id, text) => {
-
-  let url = {
-    url:  'https://a.wunderlist.com/api/v1/task_comments',
-    method: 'POST',
-    json: {
-      "task_id": task_id,
-      "text": text
+  deleteList: (list_id, revision) => {
+    if (!_.isNumber(arguments[1])) {
+      throw new Error('Argument REVISION require type Number.');
     }
-  }
 
-  const options = _.extend(url, keys);
-
-  return new Promise( (resolve, reject) => {
-    request(options, (err, response, body) => {
-      if (err) {
-        reject(err);
-      }
-
-      if (response) {
-        resolve(response);
-      }
-    });
-  });
-}
-
-exports.subtaskList = (list_id) => {
-
-  let url = {
-    url:  'https://a.wunderlist.com/api/v1/subtasks?list_id=' + list_id,
-    method: 'GET'
-  }
-
-  const options = _.extend(url, keys);
-  return new Promise( (resolve, reject) => {
-    request(options, (err, response, body) => {
-      if (err) {
-        reject(err);
-      }
-
-      if (response) {
-        resolve(response);
-      }
-    });
-  });
-}
-
-exports.subtaskComment = (task_id) => {
-
-  let url = {
-    url:  'https://a.wunderlist.com/api/v1/subtasks?task_id=' + task_id,
-    method: 'GET'
-  }
-
-  const options = _.extend(url, keys);
-  return new Promise( (resolve, reject) => {
-    request(options, (err, response, body) => {
-      if (err) {
-        reject(err);
-      }
-
-      if (response) {
-        resolve(response);
-      }
-    });
-  });
-}
-
-exports.subtaskListState =  (list_id, completed) => {
-
-  let url = {
-    url:  'https://a.wunderlist.com/api/v1/subtasks?list_id=' + list_id + '&completed=' + completed,
-    method: 'GET'
-  }
-
-  const options = _.extend(url, keys);
-  return new Promise( (resolve, reject) => {
-    request(options, (err, response, body) => {
-      if (err) {
-        reject(err);
-      }
-
-      if (response) {
-        resolve(response);
-      }
-    });
-  });
-}
-
-exports.subtaskCommentState = (task_id, completed) => {
-
-  let url = {
-    url:  'https://a.wunderlist.com/api/v1/subtasks?task_id=' + task_id + '&completed=' + completed,
-    method: 'GET'
-  }
-
-  const options = _.extend(url, keys);
-  return new Promise( (resolve, reject) => {
-    request(options, (err, response, body) => {
-      if (err) {
-        reject(err);
-      }
-
-      if (response) {
-        resolve(response);
-      }
-    });
-  });
-}
-
-
-exports.createSubstask = (task_id, title, completed) => {
-
-  let url = {
-    url:  'https://a.wunderlist.com/api/v1/subtasks',
-    method: 'POST',
-    json: {
-      "task_id": task_id,
-      "title": title,
-      "completed": completed
+    let data = {
+      url: 'https://a.wunderlist.com/api/v1/lists/' + list_id + '?revision=' + revision,
+      method: 'DELETE'
     }
-  }
 
-  const options = _.extend(url, keys);
+    const options = _.extend(data, keys);
 
-  return new Promise( (resolve, reject) => {
-    request(options, (err, response, body) => {
-      if (err) {
-        reject(err);
-      }
+    return new Promise( (resolve, reject) => {
+      request(options, (err, response, body) => {
+        if (err) {
+          reject(err);
+        }
 
-      if (response) {
-        resolve(response);
-      }
+        if (response) {
+          resolve(response);
+        }
+      });
     });
-  });
-}
+  },
 
-
-exports.deleteSubtask = (subtask_id, revision) => {
-
-  if (!_.isNumber(arguments[1])) {
-    throw new Error('Argument REVISION require type Number.');
-  }
-
-  let data = {
-    url: 'https://a.wunderlist.com/api/v1/subtasks/' + subtask_id + '?revision=' + revision,
-    method: 'DELETE'
-  }
-
-  const options = _.extend(data, keys);
-
-  return new Promise( (resolve, reject) => {
-    request(options, (err, response, body) => {
-      if (err) {
-        reject(err);
-      }
-
-      if (response) {
-        resolve(response);
-      }
-    });
-  });
-}
-
-exports.notesList = (list_id) => {
-
-  let url = {
-    url:  'https://a.wunderlist.com/api/v1/notes?list_id=' + list_id,
-    method: 'GET'
-  }
-
-  const options = _.extend(url, keys);
-  return new Promise( (resolve, reject) => {
-    request(options, (err, response, body) => {
-      if (err) {
-        reject(err);
-      }
-
-      if (response) {
-        resolve(response);
-      }
-    });
-  });
-}
-
-exports.notesTask = (task_id) => {
-
-  let url = {
-    url:  'https://a.wunderlist.com/api/v1/notes?task_id=' + task_id,
-    method: 'GET'
-  }
-
-  const options = _.extend(url, keys);
-  return new Promise( (resolve, reject) => {
-    request(options, (err, response, body) => {
-      if (err) {
-        reject(err);
-      }
-
-      if (response) {
-        resolve(response);
-      }
-    });
-  });
-}
-
-
-exports.createNote = (task_id, content) => {
-
-  let url = {
-    url:  'https://a.wunderlist.com/api/v1/notes',
-    method: 'POST',
-    json: {
-      "task_id": task_id,
-      "content": content
+  listUsers: (list_id) => {
+    let data = {
+      url: 'https://a.wunderlist.com/api/v1/users',
+      method: 'GET'
     }
-  }
 
-  const options = _.extend(url, keys);
+    const options = _.extend(data, keys);
 
-  return new Promise( (resolve, reject) => {
-    request(options, (err, response, body) => {
-      if (err) {
-        reject(err);
-      }
+    return new Promise( (resolve, reject) => {
+      request(options, (err, response, body) => {
+        if (err) {
+          reject(err);
+        }
 
-      if (response) {
-        resolve(response);
-      }
+        if (response) {
+          resolve(response);
+        }
+      });
     });
-  });
-}
+  },
 
+  getTasks: (id) => {
+    let url = {
+      url: 'https://a.wunderlist.com/api/v1/tasks?list_id=' + id,
+      method: 'GET'
+    }
 
-exports.deleteNote = (note_id, revision) => {
-  let data = {
-    url: 'https://a.wunderlist.com/api/v1/notes/' + note_id + '?revision=' + revision,
-    method: 'DELETE'
-  }
+    const options = _.extend(url, keys);
+    return new Promise( (resolve, reject) => {
+      request(options, (err, response, body) => {
+        if (err) {
+          reject(err);
+        }
 
-  const options = _.extend(data, keys);
-
-  return new Promise( (resolve, reject) => {
-    request(options, (err, response, body) => {
-      if (err) {
-        reject(err);
-      }
-
-      if (response) {
-        resolve(response);
-      }
+        if (response) {
+          resolve(response);
+        }
+      });
     });
-  });
+  },
+
+  getTasksForState: (id, state) => {
+    let url = {
+      url: 'https://a.wunderlist.com/api/v1/tasks?list_id=' + id + '&completed=' + state,
+      method: 'GET'
+    }
+
+    const options = _.extend(url, keys);
+    return new Promise( (resolve, reject) => {
+      request(options, (err, response, body) => {
+        if (err) {
+          reject(err);
+        }
+
+        if (response) {
+          resolve(response);
+        }
+      });
+    });
+  },
+
+  getTask: (id) => {
+
+    let url = {
+      url: 'https://a.wunderlist.com/api/v1/tasks/' + id,
+      method: 'GET'
+    }
+
+    const options = _.extend(url, keys);
+    return new Promise( (resolve, reject) => {
+      request(options, (err, response, body) => {
+        if (err) {
+          reject(err);
+        }
+
+        if (response) {
+          resolve(response);
+        }
+      });
+    });
+  },
+
+  createTask: (list_id, title, state, starred) => {
+
+    let url = {
+      url:  'https://a.wunderlist.com/api/v1/tasks',
+      method: 'POST',
+      json: {
+        "list_id": list_id,
+        "title": title,
+        "completed": state,
+        "starred": starred
+      }
+    }
+
+    const options = _.extend(url, keys);
+
+    return new Promise( (resolve, reject) => {
+      request(options, (err, response, body) => {
+        if (err) {
+          reject(err);
+        }
+
+        if (response) {
+          resolve(response);
+        }
+      });
+    });
+  },
+
+  deleteTask: (id, revision) => {
+
+    let url = {
+      url:  'https://a.wunderlist.com/api/v1/tasks/' + id + '?revision=' + revision,
+      method: 'DELETE'
+    }
+
+    const options = _.extend(url, keys);
+    return new Promise( (resolve, reject) => {
+      request(options, (err, response, body) => {
+        if (err) {
+          reject(err);
+        }
+
+        if (response) {
+          resolve(response);
+        }
+      });
+    });
+  },
+
+  user: () => {
+
+    let url = {
+      url:  'https://a.wunderlist.com/api/v1/user',
+      method: 'GET'
+    }
+
+    const options = _.extend(url, keys);
+    return new Promise( (resolve, reject) => {
+      request(options, (err, response, body) => {
+        if (err) {
+          reject(err);
+        }
+
+        if (response) {
+          resolve(response);
+        }
+      });
+    });
+  },
+
+  avatar: (user_id, size, fallback) => {
+
+    var  key= {
+      headers: {
+        'Content-Type': 'image/png'
+      }
+    }
+
+    let url = {
+      url:  'https://a.wunderlist.com/api/v1/avatar?user_id=' + user_id + '&size=' + size + '&fallback=' + fallback,
+      method: 'GET'
+    }
+
+    const options = _.extend(url, key);
+    return new Promise( (resolve, reject) => {
+      request(options, (err, response, body) => {
+        if (err) {
+          reject(err);
+        }
+
+        if (response) {
+          resolve(response);
+        }
+      });
+    });
+  },
+
+  getMembership: () => {
+
+    let url = {
+      url:  'https://a.wunderlist.com/api/v1/memberships',
+      method: 'GET'
+    }
+
+    const options = _.extend(url, keys);
+    return new Promise( (resolve, reject) => {
+      request(options, (err, response, body) => {
+        if (err) {
+          reject(err);
+        }
+
+        if (response) {
+          resolve(response);
+        }
+      });
+    });
+  },
+
+  addMember: (user_id, list_id, muted) => {
+
+    let url = {
+      url:  'https://a.wunderlist.com/api/v1/memberships',
+      method: 'POST',
+      json: {
+        "list_id": list_id,
+        "user_id": user_id,
+        "muted": muted
+      }
+    }
+
+    const options = _.extend(url, keys);
+    return new Promise( (resolve, reject) => {
+      request(options, (err, response, body) => {
+        if (err) {
+          reject(err);
+        }
+
+        if (response) {
+          resolve(response);
+        }
+      });
+    });
+  },
+
+  removeMember: (user_id, revision) => {
+
+    let url = {
+      url:  'https://a.wunderlist.com/api/v1/memberships/' + user_id,
+      method: 'DELETE',
+      json: {
+        "revision": revision,
+
+      }
+    }
+
+    const options = _.extend(url, keys);
+    return new Promise( (resolve, reject) => {
+      request(options, (err, response, body) => {
+        if (err) {
+          reject(err);
+        }
+
+        if (response) {
+          resolve(response);
+        }
+      });
+    });
+  },
+
+  commentsList: (list_id) => {
+
+    let url = {
+      url:  'https://a.wunderlist.com/api/v1/task_comments?list_id=' + list_id,
+      method: 'GET'
+    }
+
+    const options = _.extend(url, keys);
+    return new Promise( (resolve, reject) => {
+      request(options, (err, response, body) => {
+        if (err) {
+          reject(err);
+        }
+
+        if (response) {
+          resolve(response);
+        }
+      });
+    });
+  },
+
+  commentsTask: (task_id) => {
+
+    let url = {
+      url:  'https://a.wunderlist.com/api/v1/task_comments?task_id=' + task_id,
+      method: 'GET'
+    }
+
+    const options = _.extend(url, keys);
+    return new Promise( (resolve, reject) => {
+      request(options, (err, response, body) => {
+        if (err) {
+          reject(err);
+        }
+
+        if (response) {
+          resolve(response);
+        }
+      });
+    });
+  },
+
+  createComment: (task_id, text) => {
+
+    let url = {
+      url:  'https://a.wunderlist.com/api/v1/task_comments',
+      method: 'POST',
+      json: {
+        "task_id": task_id,
+        "text": text
+      }
+    }
+
+    const options = _.extend(url, keys);
+
+    return new Promise( (resolve, reject) => {
+      request(options, (err, response, body) => {
+        if (err) {
+          reject(err);
+        }
+
+        if (response) {
+          resolve(response);
+        }
+      });
+    });
+  },
+
+  subtaskList: (list_id) => {
+
+    let url = {
+      url:  'https://a.wunderlist.com/api/v1/subtasks?list_id=' + list_id,
+      method: 'GET'
+    }
+
+    const options = _.extend(url, keys);
+    return new Promise( (resolve, reject) => {
+      request(options, (err, response, body) => {
+        if (err) {
+          reject(err);
+        }
+
+        if (response) {
+          resolve(response);
+        }
+      });
+    });
+  },
+
+  subtaskComment: (task_id) => {
+
+    let url = {
+      url:  'https://a.wunderlist.com/api/v1/subtasks?task_id=' + task_id,
+      method: 'GET'
+    }
+
+    const options = _.extend(url, keys);
+    return new Promise( (resolve, reject) => {
+      request(options, (err, response, body) => {
+        if (err) {
+          reject(err);
+        }
+
+        if (response) {
+          resolve(response);
+        }
+      });
+    });
+  },
+
+  subtaskListState: (list_id, completed) => {
+
+    let url = {
+      url:  'https://a.wunderlist.com/api/v1/subtasks?list_id=' + list_id + '&completed=' + completed,
+      method: 'GET'
+    }
+
+    const options = _.extend(url, keys);
+    return new Promise( (resolve, reject) => {
+      request(options, (err, response, body) => {
+        if (err) {
+          reject(err);
+        }
+
+        if (response) {
+          resolve(response);
+        }
+      });
+    });
+  },
+
+  subtaskCommentState: (task_id, completed) => {
+
+    let url = {
+      url:  'https://a.wunderlist.com/api/v1/subtasks?task_id=' + task_id + '&completed=' + completed,
+      method: 'GET'
+    }
+
+    const options = _.extend(url, keys);
+    return new Promise( (resolve, reject) => {
+      request(options, (err, response, body) => {
+        if (err) {
+          reject(err);
+        }
+
+        if (response) {
+          resolve(response);
+        }
+      });
+    });
+  },
+
+
+  createSubstask: (task_id, title, completed) => {
+
+    let url = {
+      url:  'https://a.wunderlist.com/api/v1/subtasks',
+      method: 'POST',
+      json: {
+        "task_id": task_id,
+        "title": title,
+        "completed": completed
+      }
+    }
+
+    const options = _.extend(url, keys);
+
+    return new Promise( (resolve, reject) => {
+      request(options, (err, response, body) => {
+        if (err) {
+          reject(err);
+        }
+
+        if (response) {
+          resolve(response);
+        }
+      });
+    });
+  },
+
+
+  deleteSubtask: (subtask_id, revision) => {
+
+    if (!_.isNumber(arguments[1])) {
+      throw new Error('Argument REVISION require type Number.');
+    }
+
+    let data = {
+      url: 'https://a.wunderlist.com/api/v1/subtasks/' + subtask_id + '?revision=' + revision,
+      method: 'DELETE'
+    }
+
+    const options = _.extend(data, keys);
+
+    return new Promise( (resolve, reject) => {
+      request(options, (err, response, body) => {
+        if (err) {
+          reject(err);
+        }
+
+        if (response) {
+          resolve(response);
+        }
+      });
+    });
+  },
+
+  notesList: (list_id) => {
+
+    let url = {
+      url:  'https://a.wunderlist.com/api/v1/notes?list_id=' + list_id,
+      method: 'GET'
+    }
+
+    const options = _.extend(url, keys);
+    return new Promise( (resolve, reject) => {
+      request(options, (err, response, body) => {
+        if (err) {
+          reject(err);
+        }
+
+        if (response) {
+          resolve(response);
+        }
+      });
+    });
+  },
+
+  notesTask: (task_id) => {
+
+    let url = {
+      url:  'https://a.wunderlist.com/api/v1/notes?task_id=' + task_id,
+      method: 'GET'
+    }
+
+    const options = _.extend(url, keys);
+    return new Promise( (resolve, reject) => {
+      request(options, (err, response, body) => {
+        if (err) {
+          reject(err);
+        }
+
+        if (response) {
+          resolve(response);
+        }
+      });
+    });
+  },
+
+  createNote: (task_id, content) => {
+
+    let url = {
+      url:  'https://a.wunderlist.com/api/v1/notes',
+      method: 'POST',
+      json: {
+        "task_id": task_id,
+        "content": content
+      }
+    }
+
+    const options = _.extend(url, keys);
+
+    return new Promise( (resolve, reject) => {
+      request(options, (err, response, body) => {
+        if (err) {
+          reject(err);
+        }
+
+        if (response) {
+          resolve(response);
+        }
+      });
+    });
+  },
+
+
+  deleteNote: (note_id, revision) => {
+    let data = {
+      url: 'https://a.wunderlist.com/api/v1/notes/' + note_id + '?revision=' + revision,
+      method: 'DELETE'
+    }
+
+    const options = _.extend(data, keys);
+
+    return new Promise( (resolve, reject) => {
+      request(options, (err, response, body) => {
+        if (err) {
+          reject(err);
+        }
+
+        if (response) {
+          resolve(response);
+        }
+      });
+    });
+  }
 }

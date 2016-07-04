@@ -4,6 +4,8 @@
 ## Installation
 `[sudo] npm install --save-dev wunderlist-api`
 
+> obs: The names of some methods have changed from version **0.2.x**, please see the new names from the need.
+
 ## Docs
   - [Authorization](#authorization)
   - [User](#user)
@@ -71,7 +73,7 @@ For more information on types of parameters or any other matter, please visit th
 Universal Exampler: *for all methods is REQUIRED use `.then()`  for get response!*
 
 ```javascript
-var wunderlist = require('wunderlist-api');
+const wunderlist = require('wunderlist-api');
 wunderlist.method(parameters)
   .then( response => {
     // response
