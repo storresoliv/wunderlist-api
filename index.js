@@ -25,6 +25,7 @@ module.exports = {
     }
   },
 
+
   getLists: () => {
     let url = {
       url: 'https://a.wunderlist.com/api/v1/lists',
@@ -32,6 +33,15 @@ module.exports = {
     }
 
     const options = _.extend(url, keys);
+    console.log(options)
+    console.log('-------------------------------')
+    console.log('-------------------------------')
+    console.log('-------------------------------')
+    console.log('-------------------------------')
+    console.log('-------------------------------')
+    console.log('-------------------------------')
+    
+
     return new Promise( (resolve, reject) => {
       request(options, (err, response, body) => {
         if (err) {
@@ -327,7 +337,7 @@ module.exports = {
 
   avatar: (user_id, size, fallback) => {
 
-    var  key= {
+    var key = {
       headers: {
         'Content-Type': 'image/png'
       }

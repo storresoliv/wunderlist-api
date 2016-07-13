@@ -6,6 +6,7 @@
 
 > obs: The names of some methods have changed from version **0.2.x**, please see the new names from the need.
 
+
 ## Docs
   - [Authorization](#authorization)
   - [User](#user)

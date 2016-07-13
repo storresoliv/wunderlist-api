@@ -20,6 +20,10 @@
   },
   "homepage": "https://github.com/felipesousa/wunderlist-api#readme",
   "dependencies": {
+    "gulp": "^3.9.1",
+    "gulp-plumber": "^1.1.0",
+    "gulp-rename": "^1.2.2",
+    "gulp-uglify": "^1.5.4",
     "request": "^2.69.0",
     "underscore": "^1.8.3"
   }
