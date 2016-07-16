@@ -6,6 +6,7 @@
 
 ## Changelog
 
+- **1.0.0** - ES6 MODULES! You can use Wunderlist-api with new sintax based in ES6, based in Class and features ES6!
 - **0.2.2** - The names of some methods have changed from version **0.2.x**, please see the new names from the need.
 
 ## Docs
@@ -61,12 +62,17 @@ For more information on types of parameters or any other matter, please visit th
   To access the information have 2 data, the first the access token and the Client ID, this information is [available here.](https://developer.wunderlist.com/apps)
 
   - accessToken - string
-  - clientID - string
+  - clientId - string
 
   ```javascript
-  const wunderlist = require('wunderlist-api');
+  'use strict';
 
-  wunderlist.authentication(accessToken, clientID);
+  import Wunderlist from 'wunderlist-api';
+
+  const wunderlist = new Wunderlist({
+    clientId: 'Your Client ID',
+    accessToken: 'Your Access Token'
+  })
   // => authenticated
   ```
 
@@ -75,7 +81,7 @@ For more information on types of parameters or any other matter, please visit th
 Universal Exampler: *for all methods is REQUIRED use `.then()`  for get response!*
 
 ```javascript
-const wunderlist = require('wunderlist-api');
+// authentication
 wunderlist.method(parameters)
   .then( response => {
     // response
@@ -95,12 +101,12 @@ wunderlist.user()
 ```
 
 ##### Avatar
-- user_id: integer
+- userId: integer
 - size: integer (optional)
 - fallback: boolean (optional)
 
 ```javascript
-wunderlist.avatar(user_id, size, fallback)
+wunderlist.avatar(userId, size, fallback)
 ```
 
 #### Lists
@@ -111,19 +117,19 @@ wunderlist.getLists()
 ```
 
 ##### Get specified list
-- list_id: integer
+- listId: integer
 
 ```javascript
-wunderlist.getList(list_id)
+wunderlist.getList(listId)
 ```
 
 ##### Make a list from state (public or private)
-- list_id: integer
+- listId: integer
 - revision: integer
 - public: boolean
 
 ```javascript
-wunderlist.avatar(list_id, revision, public)
+wunderlist.avatar(listId, revision, public)
 ```
 
 ##### Create List
@@ -134,176 +140,176 @@ wunderlist.createList(title)
 ```
 
 ##### Update List
-- list_id: integer
+- listId: integer
 - revision: integer
 - title: string
 
 ```javascript
-wunderlist.updateList(list_id, revision, title)
+wunderlist.updateList(listId, revision, title)
 ```
 
 ##### Delete List
-- list_id: integer
+- listId: integer
 - revision: integer
 
 ```javascript
-wunderlist.deleteList(list_id, revision)
+wunderlist.deleteList(listId, revision)
 ```
 
 ##### Users authorized in list
-- list_id: integer
+- listId: integer
 
 ```javascript
-wunderlist.listUsers(list_id)
+wunderlist.listUsers(listId)
 ```
 
 #### Notes
 
 ##### Get notes from list
-- list_id: integer
+- listId: integer
 
 ```javascript
-wunderlist.notesList(list_id)
+wunderlist.notesList(listId)
 ```
 
 ##### Get notes from task
-- task_id: integer
+- taskId: integer
 
 ```javascript
-wunderlist.notesTask(task_id)
+wunderlist.notesTask(taskId)
 ```
 
 ##### Create note
-- task_id: integer
+- taskId: integer
 - content: string
 
 ```javascript
-wunderlist.createNote(task_id, content)
+wunderlist.createNote(taskId, content)
 ```
 
 ##### Delete note
-- note_id: integer
+- noteId: integer
 - revision: integer
 
 ```javascript
-wunderlist.deleteNote(note_id, revision)
+wunderlist.deleteNote(noteId, revision)
 ```
 
 #### Tasks
 
 ##### Get all tasks
-- list_id: integer
+- listId: integer
 
 ```javascript
-wunderlist.getTasks(list_id)
+wunderlist.getTasks(listId)
 ```
 
 ##### Get tasks for state
-- list_id: integer
+- listId: integer
 - state: boolean (completed or incompleted)
 
 ```javascript
-wunderlist.getTasksForState(list_id, state)
+wunderlist.getTasksForState(listId, state)
 ```
 
 ##### Get specified task
-- task_id: integer
+- taskId: integer
 
 ```javascript
-wunderlist.getTask(task_id)
+wunderlist.getTask(taskId)
 ```
 
 ##### Create task
-- list_id: integer
+- listId: integer
 - title: string
 - state: boolean
 - starred: boolean
 
 ```javascript
-wunderlist.createTask(list_id, title, state, starred)
+wunderlist.createTask(listId, title, state, starred)
 ```
 
 ##### Delete Task
-- task_id: integer
+- taskId: integer
 - revision: integer
 
 ```javascript
-wunderlist.deleteTask(task_id, revision)
+wunderlist.deleteTask(taskId, revision)
 ```
 
 #### Subtasks
 
 ##### Get subtask from list
-- task_id: integer
+- taskId: integer
 
 ```javascript
-wunderlist.subtaskList(task_id)
+wunderlist.subtaskList(taskId)
 ```
 
 ##### Get completed subtasks from list
-- list_id: integer
+- listId: integer
 - completed: boolean
 
 ```javascript
-wunderlist.subtaskListState(list_id, completed)
+wunderlist.subtaskListState(listId, completed)
 ```
 
 ##### Get subtask from task
-- task_id: integer
+- taskId: integer
 
 ```javascript
-wunderlist.subtaskComment(task_id)
+wunderlist.subtaskComment(taskId)
 ```
 
 ##### Get completed subtask from task
 
-- task_id: integer
+- taskId: integer
 - completed: boolean
 
 ```javascript
-wunderlist.subtaskCommentState(task_id, completed)
+wunderlist.subtaskCommentState(taskId, completed)
 ```
 
 ##### Create subtask
-- task_id: integer
+- taskId: integer
 - title: string
 - completed: boolean
 
 ```javascript
-wunderlist.createSubstask(task_id, title, completed)
+wunderlist.createSubstask(taskId, title, completed)
 ```
 
 ##### Delete subtask
-- subtask_id: integer
+- subtaskId: integer
 - revision: integer
 
 ```javascript
-wunderlist.deleteSubtask(subtask_id, revision)
+wunderlist.deleteSubtask(subtaskId, revision)
 ```
 
 
 #### Task Comments
 
 ##### Get comments from Task
-- task_id: integer
+- taskId: integer
 
 ```javascript
-wunderlist.commentsTaks(task_id)
+wunderlist.commentsTaks(taskId)
 ```
 
 ##### Get comments from Lists
-- list_id: integer
+- listId: integer
 
 ```javascript
-wunderlist.commentsList(list_id)
+wunderlist.commentsList(listId)
 ```
 
 ##### Create Comment
-- task_id: integer
+- taskId: integer
 - text: string
 
 ```javascript
-wunderlist.createComment(task_id, text)
+wunderlist.createComment(taskId, text)
 ```
 
 #### Membership
@@ -316,11 +322,11 @@ wunderlist.getMembership()
 
 ##### Add member to list
 - user_id: integer
-- list_id: string
+- listId: string
 - muted: boolean
 
 ```javascript
-wunderlist.addMember(user_id, list_id, muted)
+wunderlist.addMember(user_id, listId, muted)
 ```
 
 ##### Remove a Member from a List
