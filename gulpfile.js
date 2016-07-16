@@ -2,30 +2,18 @@
 
 const gulp = require('gulp');
 const plumber = require('gulp-plumber');
-const uglify = require('gulp-uglify');
-const rename = require('gulp-rename');
-
-const srcPaths = {
-  js: './src/index.js'
-};
-
-const buildPaths = {
-  js: 'build/'
-};
+const rollup = require('gulp-rollup');
+const rollupConfig = require('./rollup.config');
 
 gulp.task('js', () => {
-  gulp.src(srcPaths.js)
+  gulp.src('src/*.js')
     .pipe(plumber())
-    .pipe(uglify())
-    .pipe(rename("index.js"))
-    .pipe(rename({
-	    suffix: ".min"
-  	}))
-    .pipe(gulp.dest(buildPaths.js));
+    .pipe(rollup(rollupConfig))
+    .pipe(gulp.dest('build/'));
 });
 
 gulp.task('watch', () => {
-  gulp.watch(srcPaths.js, ['js']);
+  gulp.watch('src/*.js', ['js']);
 });
 
 
