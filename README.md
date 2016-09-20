@@ -2,7 +2,7 @@
 > :closed_book: Wunderlist in a simple way.
 
 ## Installation
-`[sudo] npm install --save-dev wunderlist-api`
+`[sudo] npm install --save wunderlist-api`
 
 ## Changelog
 
