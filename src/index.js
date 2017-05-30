@@ -6,12 +6,13 @@
  * https://github.com/felipesousa/wunderlist-api/blob/master/LICENSE
  *
  * Date: 2016-03-16
- * Last Modified: 2016-07-16
+ * Last Modified: 2017-05-29
  */
 
 'use strict';
 
 export default class Wunderlist {
+	
   constructor(config) {
     this.headers = () => {
       return {
@@ -23,12 +24,11 @@ export default class Wunderlist {
       }
     }
     this.endpoint = 'https://a.wunderlist.com/api/v1/';
-    this._        = require('underscore');
     this.request  = require('request');
   }
 
   paths(path) {
-    const options = this._.extend(path, this.headers());
+		let options = Object.assign(path, this.headers());
     return this.promise(options);
   }
 
@@ -187,7 +187,7 @@ export default class Wunderlist {
     }
 
     let url = {
-      url:  this.endpoint + 'avatar?user_id=' + user_id + '&size=' + size + '&fallback=' + fallback,
+      url:  this.endpoint + 'avatar?user_id=' + userId + '&size=' + size + '&fallback=' + fallback,
       method: 'GET'
     }
 
@@ -264,7 +264,7 @@ export default class Wunderlist {
 
   subtaskList(listId) {
     let url = {
-      url:  this.endpoint + 'subtasks?list_id=' + list_id,
+      url:  this.endpoint + 'subtasks?list_id=' + listId,
       method: 'GET'
     }
 

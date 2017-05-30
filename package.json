@@ -1,6 +1,6 @@
 {
   "name": "wunderlist-api",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "📕 Wunderlist in a simple way.",
   "main": "build/index.js",
   "repository": {
@@ -20,8 +20,7 @@
   },
   "homepage": "https://github.com/felipesousa/wunderlist-api#readme",
   "dependencies": {
-    "request": "^2.73.0",
-    "underscore": "^1.8.3"
+    "request": "^2.73.0"
   },
   "devDependencies": {
     "babel": "^6.5.2",

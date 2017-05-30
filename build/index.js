@@ -149,14 +149,13 @@ var Wunderlist = function () {
       };
     };
     this.endpoint = 'https://a.wunderlist.com/api/v1/';
-    this._ = require('underscore');
     this.request = require('request');
   }
 
   createClass(Wunderlist, [{
     key: 'paths',
     value: function paths(path) {
-      var options = this._.extend(path, this.headers());
+      var options = Object.assign(path, this.headers());
       return this.promise(options);
     }
   }, {
@@ -333,7 +332,7 @@ var Wunderlist = function () {
       };
 
       var url = {
-        url: this.endpoint + 'avatar?user_id=' + user_id + '&size=' + size + '&fallback=' + fallback,
+        url: this.endpoint + 'avatar?user_id=' + userId + '&size=' + size + '&fallback=' + fallback,
         method: 'GET'
       };
 
@@ -417,7 +416,7 @@ var Wunderlist = function () {
     key: 'subtaskList',
     value: function subtaskList(listId) {
       var url = {
-        url: this.endpoint + 'subtasks?list_id=' + list_id,
+        url: this.endpoint + 'subtasks?list_id=' + listId,
         method: 'GET'
       };
 
