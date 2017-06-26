@@ -367,7 +367,7 @@ var Wunderlist = function () {
     }
   }, {
     key: 'removeMember',
-    value: function removeMember(userId, muted) {
+    value: function removeMember(userId, muted, revision) {
       var url = {
         url: this.endpoint + 'memberships/' + userId,
         method: 'DELETE',
