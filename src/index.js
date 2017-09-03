@@ -219,7 +219,7 @@ export default class Wunderlist {
     return this.paths(url);
   }
 
-  removeMember(userId, muted) {
+  removeMember(userId, muted, revision) {
     let url = {
       url:  this.endpoint + 'memberships/' + userId,
       method: 'DELETE',

@@ -1,6 +1,12 @@
 # Wunderlist-api
 > :closed_book: Wunderlist in a simple way.
 
+---
+
+[![NPM version](http://img.shields.io/npm/v/wunderlist-api.svg?style=flat)](https://www.npmjs.com/package/react-native-looped-carousel-improved)
+[![Dependency Status](https://david-dm.org/felipesousa/wunderlist-api.svg)](https://david-dm.org/felipesousa/wunderlist-api)
+[![devDependency Status](https://david-dm.org/felipesousa/wunderlist-api/dev-status.svg)](https://david-dm.org/felipesousa/wunderlist-api#info=devDependencies)
+
 ## Installation
 `[sudo] npm install --save wunderlist-api`
 
