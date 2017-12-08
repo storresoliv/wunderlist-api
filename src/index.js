@@ -146,7 +146,7 @@ export default class Wunderlist {
     return this.paths(url);
   }
 
-  createTask(listId, title, state, starred) {
+  createTask(listId, title, state, starred, due_date) {
     let url = {
       url:  this.endpoint + 'tasks',
       method: 'POST',
@@ -154,7 +154,8 @@ export default class Wunderlist {
         "list_id": listId,
         "title": title,
         "completed": state,
-        "starred": starred
+        "starred": starred,
+	"due_date": due_date
       }
     }
 
@@ -341,8 +342,12 @@ export default class Wunderlist {
 
   createNote(taskId, content) {
     let url = {
-      url:  this.endpoint + 'notes?task_id=' + taskId,
-      method: 'GET'
+      url:  this.endpoint + 'notes',
+      method: 'POST',
+      json: {
+	"task_id": taskId,
+        "content": content,
+      }
     }
 
     return this.paths(url);
