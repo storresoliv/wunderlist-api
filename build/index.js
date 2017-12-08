@@ -288,7 +288,7 @@ var Wunderlist = function () {
     }
   }, {
     key: 'createTask',
-    value: function createTask(listId, title, state, starred) {
+    value: function createTask(listId, title, state, starred, due_date) {
       var url = {
         url: this.endpoint + 'tasks',
         method: 'POST',
@@ -296,7 +296,8 @@ var Wunderlist = function () {
           "list_id": listId,
           "title": title,
           "completed": state,
-          "starred": starred
+          "starred": starred,
+          "due_date": due_date
         }
       };
 
@@ -501,8 +502,12 @@ var Wunderlist = function () {
     key: 'createNote',
     value: function createNote(taskId, content) {
       var url = {
-        url: this.endpoint + 'notes?task_id=' + taskId,
-        method: 'GET'
+        url: this.endpoint + 'notes',
+        method: 'POST',
+		  json:{
+        	"task_id": taskId,
+			  "content": content
+		  }
       };
 
       return this.paths(url);
