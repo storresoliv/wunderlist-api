@@ -342,9 +342,10 @@ export default class Wunderlist {
 
   createNote(taskId, content) {
     let url = {
-      url:  this.endpoint + 'notes?task_id=' + taskId,
+      url:  this.endpoint + 'notes',
       method: 'POST',
       json: {
+	"task_id": taskId,
         "content": content,
       }
     }
