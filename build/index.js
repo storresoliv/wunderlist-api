@@ -504,10 +504,10 @@ var Wunderlist = function () {
       var url = {
         url: this.endpoint + 'notes',
         method: 'POST',
-		  json:{
-        	"task_id": taskId,
-			  "content": content
-		  }
+        json: {
+          "task_id": taskId,
+          "content": content
+        }
       };
 
       return this.paths(url);
@@ -526,4 +526,4 @@ var Wunderlist = function () {
   return Wunderlist;
 }();
 
-export default Wunderlist;
+module.exports = Wunderlist;
