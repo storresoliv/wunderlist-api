@@ -7,11 +7,25 @@
   "author": "Felipe Sousa <felipzbr@gmail.com>",
   "license": "MIT",
   "scripts": {
+    "test": "jest",
+    "test:watch": "yarn run test -- --watch",
     "build": "tsc -p tsconfig.json"
   },
   "private": false,
   "devDependencies": {
+    "@types/jest": "^25.1.2",
     "@types/node": "^13.7.1",
+    "jest": "^25.1.0",
+    "ts-jest": "^25.2.0",
     "typescript": "^3.7.5"
+  },
+  "jest": {
+    "moduleFileExtensions": [
+      "ts", "js"
+    ],
+    "transform": {
+      ".ts": "ts-jest"
+    },
+    "testRegex": ".*\\.spec\\.ts$"
   }
 }
