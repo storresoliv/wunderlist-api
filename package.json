@@ -1,0 +1,10 @@
+{
+  "name": "wunderlist-api",
+  "version": "2.0.0",
+  "description": "Wunderlist made easy",
+  "main": "index.js",
+  "repository": "git@github.com:felipesousa/wunderlist-api.git",
+  "author": "Felipe Sousa <felipzbr@gmail.com>",
+  "license": "MIT",
+  "private": false
+}
