@@ -6,11 +6,15 @@
   "repository": "git@github.com:felipesousa/wunderlist-api.git",
   "author": "Felipe Sousa <felipzbr@gmail.com>",
   "license": "MIT",
+  "husky": {
+    "hooks": {
+      "pre-commit": "yarn run test && lint-staged"
+    }
+  },
   "scripts": {
     "test": "jest",
     "test:watch": "yarn run test -- --watch",
-    "build": "tsc -p tsconfig.json",
-    "precommit": "yarn run test && lint-staged"
+    "build": "tsc -p tsconfig.json"
   },
   "private": false,
   "devDependencies": {
@@ -35,8 +39,7 @@
   },
   "lint-staged": {
     "src/**/*.ts": [
-      "prettier --write --no-semi --single-quote --trailing-comma es5",
-      "git add"
+      "prettier --write --no-semi --single-quote --trailing-comma es5"
     ]
   }
 }
