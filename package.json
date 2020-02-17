@@ -6,5 +6,9 @@
   "repository": "git@github.com:felipesousa/wunderlist-api.git",
   "author": "Felipe Sousa <felipzbr@gmail.com>",
   "license": "MIT",
-  "private": false
+  "scripts": {},
+  "private": false,
+  "devDependencies": {
+    "typescript": "^3.7.5"
+  }
 }
