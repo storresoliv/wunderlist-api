@@ -1,3 +1,5 @@
-test("should valid if true is equal true", () => {
-  expect(true).toBeTruthy()
+import lib from '.';
+
+test("should validate the lib exports", () => {
+  expect(lib).toEqual({});
 })
