@@ -1,5 +1,5 @@
-import lib from '.';
+import lib from '.'
 
-test("should validate the lib exports", () => {
-  expect(lib).toEqual({});
+test('should validate the lib exports', () => {
+  expect(lib).toEqual({})
 })
