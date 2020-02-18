@@ -8,15 +8,16 @@
   "license": "MIT",
   "husky": {
     "hooks": {
-      "pre-commit": "yarn run test && lint-staged"
+      "pre-commit": "yarn run test && lint-staged",
+      "pre-push": "yarn run build"
     }
   },
   "files": [
     "build"
   ],
   "scripts": {
-    "test": "jest",
-    "test:watch": "yarn run test -- --watch",
+    "test": "jest --coverage",
+    "test:watch": "jest --watch --coverage",
     "prebuild": "rm -rf dist/ && rm -rf build/",
     "build": "tsc -p tsconfig.json && rollup -c rollup.config.js",
     "postbuild": "cp dist/*.d.ts build/"
@@ -40,10 +41,26 @@
       "ts",
       "js"
     ],
+    "roots": ["<rootDir>/src"],
     "transform": {
       ".ts": "ts-jest"
     },
-    "testRegex": ".*\\.spec\\.ts$"
+    "testRegex": ".*\\.spec\\.ts$",
+    "coveragePathIgnorePatterns": [
+      "/node_modules/",
+      "/test/"
+    ],
+    "coverageThreshold": {
+      "global": {
+        "branches": 90,
+        "functions": 95,
+        "lines": 95,
+        "statements": 95
+      }
+    },
+    "collectCoverageFrom": [
+      "src/*.{js,ts}"
+    ]
   },
   "lint-staged": {
     "src/**/*.ts": [
