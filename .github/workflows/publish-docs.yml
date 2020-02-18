@@ -1,4 +1,4 @@
-name: Publish Docs to GitHub Pages
+name: Publish Docs to Github Pages
 
 on:
   push:
@@ -6,15 +6,15 @@ on:
       - develop
 
 jobs:
-  publish:
-    runs-on: ubuntu-latest
+  deploy:
+    runs-on: ubuntu-18.04
     steps:
-      - name: Check out
-        uses: actions/checkout@v1
+      - uses: actions/checkout@v1
+        # with:
+        #   submodules: true
 
-      - name: Publish Docs content to GitHub Pages
-        uses: tsunematsu21/actions-publish-gh-pages@v1.0.0
+      - name: Deploy
+        uses: peaceiris/actions-gh-pages@v3
         with:
-          dir: docs
-          branch: gh-pages
-          token: ${{ secrets.ACCESS_TOKEN }}
+          deploy_key: ${{ secrets.ACTIONS_DEPLOY_KEY }}
+          publish_dir: ./docs
