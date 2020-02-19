@@ -4,14 +4,17 @@ on:
   push:
     branches:
       - develop
+      - master
+  pull_request:
+    branches:
+      - develop
+      - master
 
 jobs:
   deploy:
     runs-on: ubuntu-18.04
     steps:
       - uses: actions/checkout@v1
-        # with:
-        #   submodules: true
 
       - name: Deploy
         uses: peaceiris/actions-gh-pages@v3
