@@ -1,4 +1,4 @@
-name: Build, Deploy and Publish
+name: Build and Deploy
 
 on:
   push:
@@ -28,8 +28,3 @@ jobs:
     
     - name: Generate Build
       run: npm run build
-    
-    - name: Publish on NPM
-      uses: JS-DevTools/npm-publish@v1
-        with:
-          token: ${{ secrets.NPM_TOKEN }}
